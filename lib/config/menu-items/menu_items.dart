@@ -12,4 +12,5 @@ class MenuItems {
 const menuItems = <MenuItems>[
   MenuItems(title: 'Buttons', subtitle: 'Many buttons', link: '/buttons', icon: Icons.smart_button_outlined),
   MenuItems(title: 'Cards', subtitle: 'Many cards', link: '/cards', icon: Icons.credit_card),
+  MenuItems(title: 'Progress Indicator', subtitle: 'A container customized', link: '/progress', icon: Icons.refresh_rounded)
 ];
