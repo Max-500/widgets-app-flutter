@@ -27,59 +27,99 @@ enum Transportation { car, plane, boat, submarine }
 
 class _UIControlsViewState extends State<_UIControlsView> {
   bool isValue = false;
+  bool lunch = false;
+  bool breakfast = false;
+  bool dinner = false;
+  bool snack = false;
   Transportation selectedTransport = Transportation.car;
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
+    return ListView(      
       physics: const ClampingScrollPhysics(),
       children: [
         SwitchListTile(
-          value: isValue, 
-          title: const Text('SwitchListTle'), subtitle: const Text('Subtitle'),
+          value: isValue,
+          title: const Text('SwitchListTle'),
+          subtitle: const Text('Subtitle'),
           onChanged: (value) => setState(() {
             isValue = !isValue;
           }),
         ),
-
-        RadioListTile(
-          title: const Text('By Car'),
-          subtitle: const Text('Travel by car'),
-          value: Transportation.car, 
-          groupValue: selectedTransport, 
-          onChanged: (_) => setState(() {
-            selectedTransport = Transportation.car;
-          }),
+        ExpansionTile(
+          title: Text('Trasnport selected: $selectedTransport'),
+          subtitle: const Text(
+              'You can select another transport but only can select a transport.'),
+          children: [
+            RadioListTile(
+              title: const Text('By Car'),
+              subtitle: const Text('Travel by car'),
+              value: Transportation.car,
+              groupValue: selectedTransport,
+              onChanged: (_) => setState(() {
+                selectedTransport = Transportation.car;
+              }),
+            ),
+            RadioListTile(
+              title: const Text('By Plane'),
+              subtitle: const Text('Travel by plane'),
+              value: Transportation.plane,
+              groupValue: selectedTransport,
+              onChanged: (_) => setState(() {
+                selectedTransport = Transportation.plane;
+              }),
+            ),
+            RadioListTile(
+              title: const Text('By Boat'),
+              subtitle: const Text('Travel by boat'),
+              value: Transportation.boat,
+              groupValue: selectedTransport,
+              onChanged: (_) => setState(() {
+                selectedTransport = Transportation.boat;
+              }),
+            ),
+            RadioListTile(
+              title: const Text('By Submarine'),
+              subtitle: const Text('Travel by submarine'),
+              value: Transportation.submarine,
+              groupValue: selectedTransport,
+              onChanged: (_) => setState(() {
+                selectedTransport = Transportation.submarine;
+              }),
+            ),
+          ],
         ),
 
-        RadioListTile(
-          title: const Text('By Plane'),
-          subtitle: const Text('Travel by plane'),
-          value: Transportation.plane, 
-          groupValue: selectedTransport, 
+        CheckboxListTile(
+          title: const Text('Do you want eat the breakfast?'),
+          value: breakfast,
           onChanged: (_) => setState(() {
-            selectedTransport = Transportation.plane;
-          }),
+            breakfast = !breakfast;
+          }),  
         ),
 
-        RadioListTile(
-          title: const Text('By Boat'),
-          subtitle: const Text('Travel by boat'),
-          value: Transportation.boat, 
-          groupValue: selectedTransport, 
+        CheckboxListTile(
+          title: const Text('Do you want to eat a snack?'),
+          value: snack,
           onChanged: (_) => setState(() {
-            selectedTransport = Transportation.boat;
-          }),
+            snack = !snack;
+          }),  
         ),
 
-        RadioListTile(
-          title: const Text('By Submarine'),
-          subtitle: const Text('Travel by submarine'),
-          value: Transportation.submarine, 
-          groupValue: selectedTransport, 
+        CheckboxListTile(
+          title: const Text('Do you want to eat the lunch?'),
+          value: lunch,
           onChanged: (_) => setState(() {
-            selectedTransport = Transportation.submarine;
-          }),
+            lunch = !lunch;
+          }),  
+        ),
+
+        CheckboxListTile(
+          title: const Text('Do you want to eat the dinner?'),
+          value: dinner,
+          onChanged: (_) => setState(() {
+            dinner = !dinner;
+          }),  
         ),
       ],
     );
