@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -19,10 +20,37 @@ final slides = <SlideInfo>[
       title: 'Loading the food', imageUrl: 'assets/images/jar-loading.gif'),
 ];
 
-class AppTutorialScreen extends StatelessWidget {
+class AppTutorialScreen extends StatefulWidget {
   static const String name = 'app_tutorial_screen';
 
   const AppTutorialScreen({super.key});
+
+  @override
+  State<AppTutorialScreen> createState() => _AppTutorialScreenState();
+}
+
+class _AppTutorialScreenState extends State<AppTutorialScreen> {
+  final PageController pageViewController = PageController();
+  bool isFinal = false;
+
+  @override
+  void initState(){
+    super.initState();
+    pageViewController.addListener(() {
+      final page = pageViewController.page ?? 0;
+      if( !isFinal && page >= (slides.length - 1.5) ){
+        setState(() {
+          isFinal = true;
+        });
+      }
+    });
+  }
+
+  @override
+  void dispose(){
+    pageViewController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +58,7 @@ class AppTutorialScreen extends StatelessWidget {
       backgroundColor: Colors.white,
       body: Stack(children: [
         PageView(
+          controller: pageViewController,
             physics: const BouncingScrollPhysics(),
             children: slides
                 .map((data) => _Slide(
@@ -43,7 +72,23 @@ class AppTutorialScreen extends StatelessWidget {
           child: TextButton(
             child: const Text('Exit'),
             onPressed: () => context.pop(),
-        ))
+        )),
+
+        isFinal ? Positioned(
+          right: 30,
+          bottom: 30,
+          child: FadeInRight(
+            from: 15,
+            delay: const Duration(seconds: 1),
+            child: FilledButton(
+              child: const Text('Start'),
+              onPressed: () => context.pop(),
+            ),
+          )
+        )
+        : const SizedBox(),
+
+
       ]),
     );
   }
