@@ -17,6 +17,7 @@ class _SideMenuState extends State<SideMenu> {
   @override
   Widget build(BuildContext context) {
     final bool hasNotch = MediaQuery.of(context).viewPadding.top > 35;
+    final int lengthMenu = menuItems.length;
 
     return NavigationDrawer(
       selectedIndex: navDrawerIndex,
@@ -34,7 +35,7 @@ class _SideMenuState extends State<SideMenu> {
           ),
 
         ...menuItems
-          .sublist(0, 4)
+          .sublist(0, (lengthMenu~/2))
           .map((item) => NavigationDrawerDestination(icon: Icon(item.icon), label: Text(item.title))),
 
           const Padding(padding: EdgeInsets.fromLTRB(25, 30, 25, 30), child: Divider(),),
@@ -45,7 +46,7 @@ class _SideMenuState extends State<SideMenu> {
 
 
           ...menuItems
-          .sublist(4, menuItems.length)
+          .sublist(lengthMenu~/2, menuItems.length)
           .map((item) => NavigationDrawerDestination(icon: Icon(item.icon), label: Text(item.title), )),
       ],
     );

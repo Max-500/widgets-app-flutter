@@ -6,12 +6,14 @@ const List<Color> listColors = <Color> [
 
 class AppTheme {
   final int selectedColor;
+  bool isDarkMode;
 
-  AppTheme({required this.selectedColor})
+  AppTheme({required this.selectedColor, this.isDarkMode = false})
     :assert(selectedColor >= 0 && selectedColor < listColors.length-1, 'The color selected must be in range of 0 or ${listColors.length-1}');
 
   ThemeData getTheme(){
     return ThemeData(
+      brightness: isDarkMode ? Brightness.dark : Brightness.light,
       useMaterial3: true,
       colorSchemeSeed: listColors[selectedColor],
       appBarTheme: const AppBarTheme(
