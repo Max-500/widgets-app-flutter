@@ -6,7 +6,7 @@ const List<Color> listColors = <Color> [
 
 class AppTheme {
   final int selectedColor;
-  bool isDarkMode;
+  final bool isDarkMode;
 
   AppTheme({this.selectedColor = 0, this.isDarkMode = false})
     :assert(selectedColor >= 0 && selectedColor < listColors.length-1, 'The color selected must be in range of 0 or ${listColors.length-1}');
@@ -21,4 +21,12 @@ class AppTheme {
       )
     );
   }
+
+  AppTheme copyWith({ 
+    int? selectedColor,
+    bool? isDarkMode
+   }) => AppTheme(
+    selectedColor: selectedColor ?? this.selectedColor,
+    isDarkMode: isDarkMode ?? this.isDarkMode
+   );
 }
